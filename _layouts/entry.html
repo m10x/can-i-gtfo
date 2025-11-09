@@ -1,0 +1,83 @@
+---
+layout: default
+---
+
+<div class="entry-detail">
+  <h1>{{ page.verb }} {{ page.resource }}</h1>
+  
+  <div class="entry-meta">
+    <p><strong>Verb:</strong> <code>{{ page.verb }}</code></p>
+    <p><strong>Resource:</strong> <code>{{ page.resource }}</code></p>
+    <p><strong>Description:</strong> {{ page.description }}</p>
+  </div>
+
+  <h2>Exploits</h2>
+  
+  {% for exploit in page.exploits %}
+  <div class="exploit">
+    <h3>{{ exploit.type }}</h3>
+    <p>{{ exploit.description }}</p>
+    
+    {% if exploit.code %}
+    <div class="code-block">
+      <pre><code>{{ exploit.code }}</code></pre>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  
+  <div class="navigation">
+    <a href="{{ '/' | relative_url }}" class="back-link">← Zurück zur Übersicht</a>
+  </div>
+</div>
+
+<style>
+.entry-detail {
+  max-width: 800px;
+}
+
+.entry-meta {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+.exploit {
+  background: #161b22;
+  border: 1px solid #21262d;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+}
+
+.exploit h3 {
+  color: #58a6ff;
+  margin-top: 0;
+}
+
+.code-block {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+</style>
