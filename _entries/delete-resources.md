@@ -19,7 +19,7 @@ exploits:
       kubectl delete networkpolicy --all --all-namespaces
       
   - type: "Lateral Movement"
-    description: "Delete logs and audit trails to cover tracks"
+    description: "Delete network policies to remove network separation."
     code: |
       # Delete network policies (remove security controls)
       kubectl delete networkpolicy --all --all-namespaces
