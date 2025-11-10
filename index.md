@@ -35,7 +35,7 @@ layout: search
 
 <!-- Filter Links -->
 <div class="filter-container">
-  <h3>Filter by Exploit Type:</h3>
+  <h3>Filter by Abuse Type:</h3>
   <div class="filter-links" id="filter-links">
     <!-- Filter links will be populated by JavaScript -->
   </div>
@@ -48,12 +48,12 @@ layout: search
        data-verb="{{ entry.verb | downcase }}" 
        data-resource="{{ entry.resource | downcase }}" 
        data-description="{{ entry.description | downcase }}"
-       data-exploit-types="{% for exploit in entry.exploits %}{{ exploit.type }}|{% endfor %}">
+       data-abuse-types="{% for abuse in entry.abuses %}{{ abuse.type }}|{% endfor %}">
     <h3><a href="{{ entry.url | relative_url }}">{{ entry.verb }} {{ entry.resource }}</a></h3>
     <p>{{ entry.description }}</p>
-    <div class="exploit-types">
-      {% for exploit in entry.exploits %}
-        <span class="exploit-type-tag">{{ exploit.type }}</span>
+    <div class="abuse-types">
+      {% for abuse in entry.abuses %}
+        <span class="abuse-type-tag">{{ abuse.type }}</span>
       {% endfor %}
     </div>
   </div>
@@ -266,11 +266,11 @@ layout: search
   text-decoration: underline;
 }
 
-.exploit-types {
+.abuse-types {
   margin-top: 1rem;
 }
 
-.exploit-type-tag {
+.abuse-type-tag {
   display: inline-block;
   padding: 0.25rem 0.5rem;
   background: #0d1117;

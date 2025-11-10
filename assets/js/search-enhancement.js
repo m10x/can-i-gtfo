@@ -34,16 +34,16 @@
     const container = document.getElementById('filter-links');
     if (!container) return;
 
-    const exploitTypes = new Set();
+    const abuseTypes = new Set();
     entryCards.forEach(card => {
-      const types = (card.dataset.exploitTypes || '').split('|');
+      const types = (card.dataset.abuseTypes || '').split('|');
       types.forEach(type => {
         const trimmed = type.trim();
-        if (trimmed) exploitTypes.add(trimmed);
+        if (trimmed) abuseTypes.add(trimmed);
       });
     });
 
-    const sortedTypes = Array.from(exploitTypes).sort();
+    const sortedTypes = Array.from(abuseTypes).sort();
     container.innerHTML = '';
 
     // "Show all" link
@@ -170,9 +170,9 @@
         }
       }
 
-      // Check exploit type filter
+      // Check abuse type filter
       if (currentFilter && matches) {
-        const types = (card.dataset.exploitTypes || '').split('|');
+        const types = (card.dataset.abuseTypes || '').split('|');
         matches = types.some(type => type.trim() === currentFilter);
       }
 

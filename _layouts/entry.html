@@ -11,24 +11,24 @@ layout: default
     <p><strong>Description:</strong> {{ page.description }}</p>
   </div>
 
-  <h2>Exploits</h2>
+  <h2>Abuses</h2>
   
-  {% for exploit in page.exploits %}
-  <div class="exploit">
-    <h3>{{ exploit.type }}</h3>
-    <p>{{ exploit.description }}</p>
+  {% for abuse in page.abuses %}
+  <div class="abuse">
+    <h3>{{ abuse.type }}</h3>
+    <p>{{ abuse.description }}</p>
     
-    {% if exploit.code %}
+    {% if abuse.code %}
     <div class="code-block">
-      <pre><code>{{ exploit.code }}</code></pre>
+      <pre><code>{{ abuse.code }}</code></pre>
     </div>
     {% endif %}
     
-    {% if exploit.references %}
+    {% if abuse.references %}
     <div class="references">
       <h4>References</h4>
       <ul>
-        {% for reference in exploit.references %}
+        {% for reference in abuse.references %}
         <li><a href="{{ reference }}" target="_blank" rel="noopener noreferrer">{{ reference }}</a></li>
         {% endfor %}
       </ul>
@@ -55,7 +55,7 @@ layout: default
   border-radius: 6px;
 }
 
-.exploit {
+.abuse {
   background: #161b22;
   border: 1px solid #21262d;
   padding: 1rem;
@@ -63,7 +63,7 @@ layout: default
   border-radius: 6px;
 }
 
-.exploit h3 {
+.abuse h3 {
   color: #58a6ff;
   margin-top: 0;
 }
