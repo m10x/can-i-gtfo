@@ -1,7 +1,7 @@
 ---
 verb: "delete"
 resource: "mutatingwebhookconfigurations"
-description: "Delete admission webhook configurations that mutate resource requests before they are persisted.
+description: "Delete admission webhook configurations that mutate resource requests before they are persisted."
 abuses:
   - type: "Privilege Escalation"
     description: "Delete mutating webhook configurations that enforce security policies to bypass restrictions"
