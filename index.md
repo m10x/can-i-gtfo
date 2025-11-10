@@ -5,13 +5,31 @@ layout: search
 <!-- Search Form -->
 <div class="search-container">
   <form method="get" action="/" class="search-form">
-    <input 
-      type="text" 
-      name="search" 
-      id="search-input" 
-      placeholder="Search for verbs, resources, descriptions or exploit types..." 
-      class="search-input"
-    />
+    <div class="search-fields">
+      <div class="search-field">
+        <label for="verb-input">Verb:</label>
+        <input 
+          type="text" 
+          name="verb" 
+          id="verb-input" 
+          placeholder="e.g. create, *, patch" 
+          class="search-input"
+        />
+      </div>
+      <div class="search-field">
+        <label for="resource-input">Resource:</label>
+        <input 
+          type="text" 
+          name="resource" 
+          id="resource-input" 
+          placeholder="e.g. pods, *, secrets" 
+          class="search-input"
+        />
+      </div>
+    </div>
+    <div class="search-help">
+      <p>Use <code>*</code> as wildcard. Examples: <code>create *</code>, <code>* pods</code>, <code>patch secrets</code></p>
+    </div>
   </form>
 </div>
 
@@ -63,6 +81,25 @@ layout: search
   width: 100%;
 }
 
+.search-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-field label {
+  color: #f0f6fc;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
 .search-input {
   width: 100%;
   padding: 0.75rem;
@@ -77,6 +114,28 @@ layout: search
 .search-input:focus {
   outline: none;
   border-color: #58a6ff;
+}
+
+.search-help {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: #8b949e;
+}
+
+.search-help p {
+  margin: 0;
+}
+
+.search-help code {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 3px;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.8rem;
+  color: #79c0ff;
 }
 
 .current-search {
@@ -291,6 +350,11 @@ layout: search
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .search-fields {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
   .filter-links {
     justify-content: center;
   }

@@ -7,18 +7,20 @@
 
   const DEBOUNCE_DELAY = 300;
 
-  let searchInput, filterLinks, entryCards, resultsInfo, noResultsElement;
+  let verbInput, resourceInput, filterLinks, entryCards, resultsInfo, noResultsElement;
   let debounceTimer = null;
-  let currentSearch = '';
+  let currentVerb = '';
+  let currentResource = '';
   let currentFilter = '';
 
   function init() {
-    searchInput = document.getElementById('search-input');
+    verbInput = document.getElementById('verb-input');
+    resourceInput = document.getElementById('resource-input');
     entryCards = document.querySelectorAll('.entry-card');
     resultsInfo = document.getElementById('results-info');
     noResultsElement = document.getElementById('no-results');
 
-    if (!searchInput || !entryCards.length) return;
+    if (!verbInput || !resourceInput || !entryCards.length) return;
 
     generateFilterLinks();
     filterLinks = document.querySelectorAll('.filter-link');
@@ -63,29 +65,44 @@
 
   function extractInitialState() {
     const params = new URLSearchParams(window.location.search);
-    currentSearch = params.get('search') || '';
+    currentVerb = params.get('verb') || '';
+    currentResource = params.get('resource') || '';
     currentFilter = params.get('filter') || '';
 
-    if (searchInput && currentSearch) {
-      searchInput.value = currentSearch;
+    if (verbInput && currentVerb) {
+      verbInput.value = currentVerb;
+    }
+    if (resourceInput && currentResource) {
+      resourceInput.value = currentResource;
     }
   }
 
   function setupEventListeners() {
-    // Search input with debouncing
-    searchInput.addEventListener('input', e => {
+    // Verb input with debouncing
+    verbInput.addEventListener('input', e => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
-        currentSearch = e.target.value.trim();
+        currentVerb = e.target.value.trim();
+        performFiltering();
+        updateBrowserURL();
+      }, DEBOUNCE_DELAY);
+    });
+
+    // Resource input with debouncing
+    resourceInput.addEventListener('input', e => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        currentResource = e.target.value.trim();
         performFiltering();
         updateBrowserURL();
       }, DEBOUNCE_DELAY);
     });
 
     // Prevent form submission
-    searchInput.closest('form').addEventListener('submit', e => {
+    verbInput.closest('form').addEventListener('submit', e => {
       e.preventDefault();
-      currentSearch = searchInput.value.trim();
+      currentVerb = verbInput.value.trim();
+      currentResource = resourceInput.value.trim();
       performFiltering();
       updateBrowserURL();
     });
@@ -111,21 +128,49 @@
 
   function performFiltering() {
     let visibleCount = 0;
-    const searchTerm = currentSearch.toLowerCase();
 
     entryCards.forEach(card => {
       let matches = true;
 
-      if (searchTerm) {
-        const content = [
-          card.dataset.verb || '',
-          card.dataset.resource || '',
-          card.dataset.description || '',
-          card.dataset.exploitTypes || ''
-        ].join(' ').toLowerCase();
-        matches = content.includes(searchTerm);
+      // Check verb match (with wildcard support)
+      if (currentVerb && matches) {
+        const cardVerb = (card.dataset.verb || '').toLowerCase();
+        const searchVerb = currentVerb.toLowerCase();
+        
+        if (searchVerb === '*') {
+          // Wildcard matches everything
+          matches = true;
+        } else if (searchVerb.includes('*')) {
+          // Pattern matching with wildcards
+          const pattern = searchVerb.replace(/\*/g, '.*');
+          const regex = new RegExp('^' + pattern + '$');
+          matches = regex.test(cardVerb);
+        } else {
+          // Exact match
+          matches = cardVerb === searchVerb;
+        }
       }
 
+      // Check resource match (with wildcard support)
+      if (currentResource && matches) {
+        const cardResource = (card.dataset.resource || '').toLowerCase();
+        const searchResource = currentResource.toLowerCase();
+        
+        if (searchResource === '*') {
+          // Wildcard matches everything
+          matches = true;
+        } else if (searchResource.includes('*')) {
+          // Pattern matching with wildcards
+          const pattern = searchResource.replace(/\*/g, '.*');
+          const regex = new RegExp('^' + pattern + '$');
+          matches = regex.test(cardResource);
+        } else {
+          // Exact match
+          matches = cardResource === searchResource;
+        }
+      }
+
+      // Check exploit type filter
       if (currentFilter && matches) {
         const types = (card.dataset.exploitTypes || '').split('|');
         matches = types.some(type => type.trim() === currentFilter);
@@ -142,7 +187,7 @@
   function updateResultsInfo(visibleCount) {
     if (!resultsInfo) return;
     const total = entryCards.length;
-    resultsInfo.textContent = (currentSearch || currentFilter) 
+    resultsInfo.textContent = (currentVerb || currentResource || currentFilter) 
       ? `${visibleCount} of ${total} entries shown`
       : `${total} entries total`;
   }
@@ -150,32 +195,42 @@
   function updateNoResultsDisplay(visibleCount) {
     if (!noResultsElement) return;
     noResultsElement.style.display = 
-      (visibleCount === 0 && (currentSearch || currentFilter)) ? 'block' : 'none';
+      (visibleCount === 0 && (currentVerb || currentResource || currentFilter)) ? 'block' : 'none';
   }
 
   function updateBrowserURL() {
     if (!window.history?.pushState) return;
 
     const params = new URLSearchParams();
-    if (currentSearch) params.set('search', currentSearch);
+    if (currentVerb) params.set('verb', currentVerb);
+    if (currentResource) params.set('resource', currentResource);
     if (currentFilter) params.set('filter', currentFilter);
 
     const newURL = window.location.pathname + (params.toString() ? '?' + params : '');
     if (newURL !== window.location.pathname + window.location.search) {
-      window.history.pushState({ search: currentSearch, filter: currentFilter }, '', newURL);
+      window.history.pushState({ verb: currentVerb, resource: currentResource, filter: currentFilter }, '', newURL);
     }
   }
 
   function updateFilterLinkStates() {
     filterLinks.forEach(link => {
       if (link.classList.contains('clear-filter')) {
-        link.href = currentSearch ? `/?search=${encodeURIComponent(currentSearch)}` : '/';
+        let href = '/';
+        const params = new URLSearchParams();
+        if (currentVerb) params.set('verb', currentVerb);
+        if (currentResource) params.set('resource', currentResource);
+        if (params.toString()) href += '?' + params.toString();
+        
+        link.href = href;
         link.classList.toggle('active', !currentFilter);
       } else {
         const type = link.textContent.trim();
-        let href = `/?filter=${encodeURIComponent(type)}`;
-        if (currentSearch) href += `&search=${encodeURIComponent(currentSearch)}`;
-        link.href = href;
+        const params = new URLSearchParams();
+        params.set('filter', type);
+        if (currentVerb) params.set('verb', currentVerb);
+        if (currentResource) params.set('resource', currentResource);
+        
+        link.href = '/?' + params.toString();
         link.classList.toggle('active', type === currentFilter);
       }
     });

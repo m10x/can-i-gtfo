@@ -23,6 +23,8 @@ exploits:
     code: |
       # Your kubectl commands or exploitation code here
       kubectl example command
+    references:
+      - "https://m10x.de/
       
   - type: "Another Category"
     description: "Another exploitation method"
