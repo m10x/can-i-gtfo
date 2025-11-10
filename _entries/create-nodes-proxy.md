@@ -2,7 +2,7 @@
 verb: "create"
 resource: "nodes/proxy"
 description: "Allows to make CREATE requests to the kubelet API as system:masters"
-exploits:
+abuses:
   - type: "Lateral Movement"
     description: "Execute commands in a pod"
     code: |
