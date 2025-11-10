@@ -6,7 +6,7 @@
 
 ## Contributing
 
-Collaboration and contributions with additional techniques are very welcome! If you know of other Kubernetes RBAC permissions that can be exploited or have discovered new attack vectors, please share them with the community.
+Collaboration and contributions with additional techniques are very welcome! If you know of other Kubernetes RBAC permissions that can be abused, please share them with the community.
 
 ### Adding New Entries
 
