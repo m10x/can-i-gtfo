@@ -8,4 +8,4 @@ abuses:
     code: |
       # Bind admin role to controlled user
       kubectl create rolebinding admin-escalation --role=admin --user=attacker
- ---
+---
