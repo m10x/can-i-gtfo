@@ -27,9 +27,6 @@ layout: search
         />
       </div>
     </div>
-    <div class="search-help">
-      <p>Use <code>*</code> as wildcard. Examples: <code>create *</code>, <code>* pods</code>, <code>patch secrets</code></p>
-    </div>
   </form>
 </div>
 
@@ -114,28 +111,6 @@ layout: search
 .search-input:focus {
   outline: none;
   border-color: #58a6ff;
-}
-
-.search-help {
-  background: #161b22;
-  border: 1px solid #21262d;
-  border-radius: 6px;
-  padding: 0.75rem;
-  font-size: 0.875rem;
-  color: #8b949e;
-}
-
-.search-help p {
-  margin: 0;
-}
-
-.search-help code {
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 3px;
-  padding: 0.125rem 0.25rem;
-  font-size: 0.8rem;
-  color: #79c0ff;
 }
 
 .current-search {
