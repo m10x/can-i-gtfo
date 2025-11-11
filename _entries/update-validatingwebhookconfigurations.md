@@ -5,7 +5,6 @@ description: "Update admission webhook configurations that validate resource req
 abuses:
   - type: "Persistence"
     description: "Update validating webhook configurations to ensure persistent access by preventing changes"
-    code:
   - type: "Information Disclosure"
     description: "Update validating webhook configurations to log information"
     code: |

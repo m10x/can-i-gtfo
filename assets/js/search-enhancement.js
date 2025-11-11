@@ -137,18 +137,9 @@
         const cardVerb = (card.dataset.verb || '').toLowerCase();
         const searchVerb = currentVerb.toLowerCase();
         
-        if (searchVerb === '*') {
-          // Wildcard matches everything
-          matches = true;
-        } else if (searchVerb.includes('*')) {
-          // Pattern matching with wildcards
-          const pattern = searchVerb.replace(/\*/g, '.*');
-          const regex = new RegExp('^' + pattern + '$');
-          matches = regex.test(cardVerb);
-        } else {
-          // Exact match
-          matches = cardVerb === searchVerb;
-        }
+        const pattern = searchVerb.replace(/\*/g, '.*');
+        const regex = new RegExp(pattern);
+        matches = regex.test(cardVerb);
       }
 
       // Check resource match (with wildcard support)
@@ -156,18 +147,9 @@
         const cardResource = (card.dataset.resource || '').toLowerCase();
         const searchResource = currentResource.toLowerCase();
         
-        if (searchResource === '*') {
-          // Wildcard matches everything
-          matches = true;
-        } else if (searchResource.includes('*')) {
-          // Pattern matching with wildcards
-          const pattern = searchResource.replace(/\*/g, '.*');
-          const regex = new RegExp('^' + pattern + '$');
-          matches = regex.test(cardResource);
-        } else {
-          // Exact match
-          matches = cardResource === searchResource;
-        }
+        const pattern = searchResource.replace(/\*/g, '.*');
+        const regex = new RegExp(pattern);
+        matches = regex.test(cardResource);
       }
 
       // Check abuse type filter
