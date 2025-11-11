@@ -6,11 +6,11 @@
 
 ## Contributing
 
-Collaboration and contributions with additional techniques are very welcome! If you know of other Kubernetes RBAC permissions that can be abused, please share them with the community.
+Collaboration and contributions with additional techniques or improvements to those already listed are very welcome! If you know of other Kubernetes RBAC permissions that can be abused, please share them with the community.
 
 ### Adding New Entries
 
-To add a new abuseation technique, simply create a new file under the `_entries/` directory. Each entry follows this structure:
+To add a new abuse technique, simply create a new file under the `_entries/` directory. Each entry follows this structure:
 
 ```yaml
 ---
@@ -19,15 +19,15 @@ resource: "your-resource"
 description: "Brief description of what this permission allows"
 abuses:
   - type: "Abuse Category"
-    description: "Description of the abuseation technique"
+    description: "Description of the abuse technique"
     code: |
-      # Your kubectl commands or abuseation code here
+      # Your kubectl commands or abuse code here
       kubectl example command
     references:
       - "https://m10x.de/
       
   - type: "Another Category"
-    description: "Another abuseation method"
+    description: "Another abuse method"
     code: |
       # More commands
       kubectl another example
