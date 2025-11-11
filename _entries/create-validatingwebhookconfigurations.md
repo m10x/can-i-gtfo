@@ -13,5 +13,4 @@ abuses:
       # Create webhook that logs all secret operations
   - type: "Persistence"
     description: "Create validating webhooks that ensure persistent access by preventing changes"
-    code:
 ---
