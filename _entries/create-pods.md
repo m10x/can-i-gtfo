@@ -4,7 +4,7 @@ resource: "pods"
 description: "Create new pods"
 abuses:
   - type: "Container Escape"
-    description: "Create a pod with privileged access and escape container boundaries."
+    description: "Create a pod with privileged access (BadPod) and escape container boundaries."
     resources:
       - "https://github.com/BishopFox/badPods"
   - type: "Lateral Movement"
