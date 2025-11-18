@@ -1,6 +1,6 @@
 # can-i gtfo?
 
-[can-i gtfo](http://m10x.de/can-i-gtfo/) is a collection of Kubernetes RBAC permissions which can be abused to escape from pods, escalate privileges and more.
+[can-i gtfo](http://m10x.de/can-i-gtfo/) is a collection of Kubernetes RBAC permissions which can be abused to escape from pods, escalate privileges, pivot and more.
 
 <img src="assets/images/canigtfo.png" width="187">
 
