@@ -8,7 +8,7 @@ abuses:
     description: "1. Create a certificatesigningrequest with cluster admin privileges.
     2. The certificatesigningrequest needs to be approved ('update certificatesigningrequests/approval' permission is needed)
     (3. You may not be authorized to approve requests for that signer. In that case you need 'approve signers' in order to change that.)"
-  - code: |
+    code: |
     # Generate private key
     openssl genrsa -out admin-client.key 2048
 
