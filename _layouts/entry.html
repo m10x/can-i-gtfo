@@ -16,7 +16,7 @@ layout: default
   {% for abuse in page.abuses %}
   <div class="abuse">
     <h3>{{ abuse.type }}</h3>
-    <p>{{ abuse.description }}</p>
+    <p>{{ abuse.description | newline_to_br }}</p>
     
     {% if abuse.code %}
     <div class="code-block">
