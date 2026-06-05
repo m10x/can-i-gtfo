@@ -1,5 +1,5 @@
 ---
-verb: "get"
+verb: "delete"
 resource: "secrets"
 description: "Delete specific secrets in Kubernetes"
 abuses:
